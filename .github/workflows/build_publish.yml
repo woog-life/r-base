@@ -17,6 +17,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build the tagged Docker image
-        run: docker build -t ghcr.io/woog-life/r-base:${GITHUB_SHA} .
+        run: docker build -t ghcr.io/woog-life/r-base:4.1.3 .
       - name: Push the tagged Docker image
-        run: docker push ghcr.io/woog-life/r-base:${GITHUB_SHA}
+        run: docker push ghcr.io/woog-life/r-base:4.1.3
