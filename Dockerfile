@@ -21,6 +21,8 @@ RUN adduser \
     --uid 1001 \
     launcher
 
+RUN chown launcher /usr/app
+
 USER 1001
 
 CMD ["Rscript", "main.R"]
