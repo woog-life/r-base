@@ -21,7 +21,8 @@ RUN adduser \
     --uid 1001 \
     launcher
 
-RUN chown launcher /usr/app
+RUN chown -R launcher:launcher /usr/app
+RUN chmod -R o+w /usr/app
 
 USER 1001
 
