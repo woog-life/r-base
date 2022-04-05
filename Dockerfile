@@ -1,8 +1,26 @@
 FROM r-base:4.1.3
 
+WORKDIR /usr/app
+
 RUN apt-get update && \
-    apt-get install -y libxml2-dev libssl-dev unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev && \
+    apt-get install -y pkg-config libxml2-dev libssl-dev libcurl4-openssl-dev libfontconfig1-dev libcairo2-dev \
+    libpq-dev && \
     rm -rf /var/lib/apt/lists/*
-RUN R -e "install.packages(c('ggridges', 'ggplot2', 'viridis', 'hrbrthemes', 'RPostgres', 'aws.s3'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
+
+RUN mkdir -p $HOME/local/R_libs
+
+ADD DESCRIPTION DESCRIPTION
+
+RUN R -e "install.packages('renv', lib='~/local/R_libs')"
+RUN R -e "library('renv', lib='~/local/R_libs'); renv::install();"
+
+RUN adduser \
+    --disabled-password \
+    --shell /bin/false \
+    --gecos '' \
+    --uid 1001 \
+    launcher
+
+USER 1001
 
 CMD ["Rscript", "main.R"]
