@@ -1,4 +1,4 @@
-FROM r-base:4.2.0
+FROM r-base:4.2.1
 
 WORKDIR /usr/app
 
