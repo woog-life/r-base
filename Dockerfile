@@ -15,8 +15,8 @@ RUN R -e "install.packages('renv', lib='~/local/R_libs')"
 RUN R -e "library('renv', lib='~/local/R_libs'); renv::install();"
 
 RUN useradd \
-    --uid 1001
-    --shell /bin/false
+    --uid 1001 \
+    --shell /bin/false \
     launcher
 
 RUN chown -R launcher:launcher /usr/app
